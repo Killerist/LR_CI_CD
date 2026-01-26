@@ -24,10 +24,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run unit tests
-        run: |
-          pytest
-
       - name: Run Ruff linter
         run: |
           ruff check .
+
+      - name: Run unit tests
+        run: |
+          pytest

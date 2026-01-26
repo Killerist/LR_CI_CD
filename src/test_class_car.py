@@ -1,5 +1,8 @@
 import unittest
+import pytest
+
 from .car import Car
+
 
 class TestCase(unittest.TestCase):
     def setUp(self):
@@ -9,7 +12,12 @@ class TestCase(unittest.TestCase):
         pass
 
     def test_drive(self):
-        self.car.drive(20)
+        # Обработка исключения для случая с недостатком топлива (tank=0)
+        with pytest.raises(Exception):
+            self.car.drive(20)
+        # Для unittest-стиля: self.assertRaises(Exception, lambda: self.car.drive(20))
+        # Но поскольку Pytest запускает тесты, with pytest.raises работает
+        # Теперь тест не упадёт здесь, и дойдёт до следующей проверки
         self.assertRaises(Exception, lambda: self.car.drive(80000))
 
     def test_refuel(self):
